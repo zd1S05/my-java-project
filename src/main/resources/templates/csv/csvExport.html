@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>CSVファイル出力</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<div class="container">
+	    
+	    <h1 class="mt-4">CSV出力</h1>
+		<div th:if="${statusMessage}" class="alert alert-success mt-4">
+				[[${statusMessage}]]
+		</div>
+		<form action="" method="post">
+			<div class="mb-3">
+				<label for="listingDate" class="form-label">出品日:</label>
+				 <input type="date" id="listingDate"
+					name="listingDate"  class="form-control mb-3" required> 		
+				<button type="submit"class="btn btn-primary btn-block">CSVダウンロード</button>
+			</div>
+		</form>
+		<p class="mt-4"><a th:href="@{/items}">一覧に戻る</a></p>
+	</div>
+</body>
+</html>

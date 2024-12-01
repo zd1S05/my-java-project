@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>商品管理システム</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<div class="text-center mt-4">
+	
+
+		<h1 class="mt-4">商品管理システム</h1>
+		
+		<th:block th:if="${session.loginId}">
+			<a class="btn btn-primary btn-lg mt-4 mr-2" th:href="@{/items}">商品一覧</a>
+		</th:block>
+
+
+		<th:block th:unless="${session.loginId}">
+			<form class="mt-4" action="" method="post" th:object="${user}">
+				<span th:errors="*{loginId}" class="error">IDまたはパスワードが正しくありません。</span>
+				<p class="mt-2">ログインID：<input type="text" th:field="*{loginId}"></p>
+				<p class="mt-2">パスワード：<input type="password" th:field="*{loginPass}"></p>
+				<input class="btn btn-primary" type="submit" value="ログイン">
+			</form> 
+		</th:block>
+
+	</div>
+</body>
+</html>

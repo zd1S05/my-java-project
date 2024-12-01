@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.GenreMapper">
+	
+	<select id="selectAll" resultType="Genre">
+		SELECT genre FROM genre
+	</select>
+	
+	<select id="selectByStyle" resultType="Genre">
+		SELECT g.* FROM genre g
+		JOIN style s ON g.style_id  = s.id
+		WHERE s.style = #{style}
+	</select>
+	
+</mapper>

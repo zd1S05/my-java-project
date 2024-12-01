@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>[[${title}]]</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+	<h1 class="my-4">[[${title}]]</h1>
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+			<form action="" method="post" th:object="${imageFile}" enctype="multipart/form-data">
+				<div class="form-group mb-3">
+					<label for="images"></label>
+					
+						<input type="file" th:field = "*{imageFile1}"/>
+						<div th:if="${#fields.hasErrors('imageFile1')}" th:errors="*{imageFile1}"></div>
+						
+						<input type="file" th:field = "*{imageFile2}"  />
+						<div th:if="${#fields.hasErrors('imageFile2')}" th:errors="*{imageFile2}"></div>
+						
+						<input type="file" th:field = "*{imageFile3}"  />
+						<div th:if="${#fields.hasErrors('imageFile3')}" th:errors="*{imageFile3}"></div>
+						
+						<input type="file" th:field = "*{imageFile4}"  />
+						<div th:if="${#fields.hasErrors('imageFile4')}" th:errors="*{imageFile4}"></div>
+						
+						<input type="file" th:field = "*{imageFile5}"  />
+						<div th:if="${#fields.hasErrors('imageFile5')}" th:errors="*{imageFile5}"></div>
+						
+						<input type="file" th:field = "*{imageFile6}"  />
+						<div th:if="${#fields.hasErrors('imageFile6')}" th:errors="*{imageFile6}"></div>
+						
+						<input type="file" th:field = "*{imageFile7}"  />
+						<div th:if="${#fields.hasErrors('imageFile7')}" th:errors="*{imageFile7}"></div>
+						
+						<input type="file" th:field = "*{imageFile8}"  />
+						<div th:if="${#fields.hasErrors('imageFile8')}" th:errors="*{imageFile8}"></div>
+						
+						<input type="file" th:field = "*{imageFile9}"  />
+						<div th:if="${#fields.hasErrors('imageFile9')}" th:errors="*{imageFile9}"></div>
+						
+						<input type="file" th:field = "*{imageFile10}"  />
+						<div th:if="${#fields.hasErrors('imageFile10')}" th:errors="*{imageFile10}"></div>
+				</div>
+				<div class="form-group mb-3">
+					<!-- 画像を更新するボタン -->
+					<input type="submit" class="btn btn-primary btn-block" value="画像を更新する">
+				</div>
+			</form>
+		</div>
+	</div>		
+</div>
+</body>
+</html>

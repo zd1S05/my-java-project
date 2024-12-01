@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.Detail3Mapper">
+
+	<select id="selectAll" resultType="Detail3">
+		SELECT * FROM detail3 
+	</select>
+	
+	<select id="selectByDetail2" resultType="Detail3">
+		SELECT d3.* FROM detail3 d3
+		JOIN detail2 d2 ON d3.detail2_id = d2.id
+		WHERE d2.detail2 = #{detail2}
+	</select>
+	
+</mapper>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>[[${title}]]</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+	<div class="container">
+		<h1 class="my-4">[[${title}]]</h1>
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<form th:action="@{/categories/editWithCategory/{id}(id=${item.id})}" method="post" th:object="${item}">
+
+					<div class="form-group mb-3">
+						<label for="category">カテゴリ</label> 
+						<span class="error" th:errors="*{category}"></span> 
+						<input type="text"
+							   th:field="*{category}"
+							   id="category"
+							   class="form-control" />
+						<a th:href="@{/categories/categoryForEdit/{id}(id=${item.id})}" >カテゴリIDを選択</a>
+
+					</div>
+
+					<div class="form-group mb-3">
+						<label for="title">タイトル</label>
+						<span class="error" th:errors="*{title}"></span> 
+						<input type="text" id="title" class="form-control" th:field="*{title}" />
+					</div>
+
+					<div class="form-group mb-3">
+						<label for="description">商品説明</label> <span class="error"
+							th:errors="*{description}"></span> <input type="text"
+							id="description" class="form-control" th:field="*{description}" />
+					</div>
+
+					<div class="form-group mb-3">
+						<label for="startingPrice">開始価格</label> <span class="error"
+							th:errors="*{startingPrice}"></span> <input type="number"
+							id="startingPrice" class="form-control"
+							th:field="*{startingPrice}" min="0" step="1" placeholder="例：1000" />
+					</div>
+
+					<div class="form-group mb-3">
+						<label for="eventDuration">開催期間</label> <span class="error"
+							th:errors="*{eventDuration}"></span> <select id="eventDuration"
+							class="form-control" th:field="*{eventDuration}">
+							<option value="" disabled selected>期間を選択</option>
+							<option th:each="i : ${#numbers.sequence(1,7)}" th:value="${i}"
+								th:text="${i}"></option>
+						</select>
+					</div>
+
+					<div class="form-group mb-3">
+						<label for="endTime">終了時間</label> <span class="error"
+							th:errors="*{endTime}"></span> <select id="endTime"
+							class="form-control" th:field="*{endTime}">
+							<option value="" disabled selected>時間を選択</option>
+							<option th:each="i : ${#numbers.sequence(0,23)}" th:value="${i}"
+								th:text="${i+'時'}"></option>
+						</select>
+					</div>
+
+					<div class="form-group mb-3">
+						<label for="itemCondition">商品の状態</label> <span class="error"
+							th:errors="*{itemCondition}"></span> <select id="itemCondition"
+							class="form-control" th:field="*{itemCondition}">
+							<option value="" disabled selected>状態を選択</option>
+							<option th:value="'新品、未使用に近い'" th:text="|新品、未使用に近い|"></option>
+							<option th:value="'目立った傷や汚れなし'" th:text="|目立った傷や汚れなし|"></option>
+							<option th:value="'やや傷や汚れあり'" th:text="|やや傷や汚れあり|"></option>
+							<option th:value="'傷や汚れあり'" th:text="|傷や汚れあり|"></option>
+							<option th:value="'全体的に状態が悪い'" th:text="|全体的に状態が悪い|"></option>
+							<option th:value="'中古'" th:text="|中古|"></option>
+							<option th:value="'その他'" th:text="|その他|"></option>
+						</select>
+					</div>
+
+					<div class="form-group mb-3">
+						<label for="listingDate">出品日</label> <span class="error"
+							th:errors="*{listingDate}"></span> <input type="date"
+							id="listingDate" class="form-control" th:field="*{listingDate}">
+					</div>
+
+					<div class="form-group mb-3">
+						<!-- 商品を登録するボタン -->
+						<input type="submit" class="btn btn-primary btn-block"
+							name="action" value="商品を登録する">
+						<input type="hidden" name="source" value="edit" />
+					</div>
+				</form>
+				<p class="mt-4"><a th:href="@{/items}">一覧に戻る</a></p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

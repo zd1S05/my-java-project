@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.CategoryMapper">
+	
+	<resultMap type="com.example.app.domain.Category" id="CategoryResultMap">
+		<id property="id" column="id"/>
+        
+        <id property="categoryId" column="category_id" />
+        
+        <association property="style" javaType="com.example.app.domain.Style">
+        	<id property="id" column="style_id"/>
+        	<result property="style" column="style"/>
+        </association>
+        
+        <association property="genre" javaType="com.example.app.domain.Genre">
+        	<id property="id" column="genre_id"/>
+        	<result property="genre" column="genre"/>
+        </association>
+        
+        <association property="detail1" javaType="com.example.app.domain.Detail1">
+        	<id property="id" column="detail1_id"/>
+        	<result property="detail1" column="detail1"/>
+        </association>
+        
+        <association property="detail2" javaType="com.example.app.domain.Detail2">
+        	<id property="id" column="detail2_id"/>
+        	<result property="detail2" column="detail2"/>
+        </association>
+        
+        <association property="detail3" javaType="com.example.app.domain.Detail3">
+        	<id property="id" column="detail3_id"/>
+        	<result property="detail3" column="detail3"/>
+        </association>        
+	</resultMap>
+	
+	<select id="selectAll" resultMap="CategoryResultMap">
+		SELECT c.*,
+			   s.id AS style_id, s.style,
+			   g.id AS genre_id, g.genre,
+			   d1.id AS detail1_id, d1.detail1,
+			   d2.id AS detail2_id, d2.detail2,
+			   d3.id AS detail3_id, d3.detail3
+		FROM category c
+		LEFT JOIN style s ON c.style_id = s.id
+		LEFT JOIN genre g ON c.genre_id = g.id
+		LEFT JOIN detail1 d1 ON c.detail1_id = d1.id
+		LEFT JOIN detail2 d2 ON c.detail2_id = d2.id
+		LEFT JOIN detail3 d3 ON c.detail3_id = d3.id
+	</select>
+	
+	<select id="selectById" resultType="Category">
+		SELECT * FROM category
+		WHERE id = #{id}
+	</select>
+	
+</mapper>

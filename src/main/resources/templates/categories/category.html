@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>カテゴリ一覧</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+	integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
+</head>
+<body>
+	<div class="container">
+		<h1 class="my-4">[[${title}]]</h1>
+
+		<!-- フィルタ -->
+		<div class="filter-container mb-4">
+		
+			<select id="styleFilter" class="form-control">
+				<option value="">スタイルで絞り込み</option>
+				<option th:each="style : ${styles}" th:value="${style.style}" th:text="${style.style}"></option>
+			</select>
+			
+			<select id="genreFilter" class="form-control mt-2" style="display:none;">
+				<option value="">ジャンルで絞り込み</option>
+				<option th:each="genre : ${genres}" th:value="${genre.genre}" th:text="${genre.genre}"></option>
+			</select>
+			
+			<select id="detail1Filter" class="form-control mt-2" style="display:none;">
+				<option value="">詳細1で絞り込み</option>
+				<option th:each="detail1 : ${detail1s}" th:value="${detail1.detail1}" th:text="${detail1.detail1}"></option>
+			</select>
+			
+			<select id="detail2Filter" class="form-control mt-2" style="display:none;">
+				<option value="">詳細2で絞り込み</option>
+				<option th:each="detail2 : ${detail2s}" th:value="${detail2.detail2}" th:text="${detail2.detail2}"></option>
+			</select>
+			
+			<select id="detail3Filter" class="form-control mt-2" style="display:none;">
+				<option value="">詳細3で絞り込み</option>
+				<option th:each="detail3 : ${detail3s}" th:value="${detail3.detail3}" th:text="${detail3.detail3}"></option>
+			</select>
+			
+		</div>
+
+
+		<table class="table" id="categoryTable">
+			<thead>
+				<tr>
+					<th>カテゴリID</th>
+					<th>スタイル</th>
+					<th>ジャンル</th>
+					<th>詳細1</th>
+					<th>詳細2</th>
+					<th>詳細3</th>
+					<th>取得</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="category : ${categorys}">
+					<td th:text="${category.categoryId}"></td>
+
+					<!-- styleがnullの場合も空文字を表示 -->
+					<td th:text="${category.style?.style ?: ''}"></td>
+
+					<!-- genreがnullの場合も空文字を表示 -->
+					<td th:text="${category.genre?.genre ?: ''}"></td>
+
+					<!-- detail1がnullの場合も空文字を表示 -->
+					<td th:text="${category.detail1?.detail1 ?: ''}"></td>
+
+					<!-- detail2がnullの場合も空文字を表示 -->
+					<td th:text="${category.detail2?.detail2 ?: ''}"></td>
+
+					<!-- detail3がnullの場合も空文字を表示 -->
+					<td th:text="${category.detail3?.detail3 ?: ''}"></td>
+
+					<td>
+						<form th:action="@{/categories/categoryForNew}" th:if="${source == 'new'}" method="post">
+        					<input type="hidden" name="categoryId" th:value="${category.categoryId}"/>
+       						<input type="hidden" name="source" th:value="${source}" />
+       						<button type="submit" class="btn btn-primary">取得</button>
+   						 </form>
+   						 <form th:action="@{/categories/editWithCategory/{id}(id=${item.id})}" th:if="${source == 'edit'}" method="get">
+        					<input type="hidden" name="categoryId" th:value="${category.categoryId}"/>
+       						<input type="hidden" name="source" th:value="${source}" />
+       						<button type="submit" class="btn btn-primary">取得</button>
+   						 </form>
+					</td>
+				</tr>	
+			</tbody>
+		</table>
+
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			// DataTableの初期化
+			var table = $('#categoryTable').DataTable({
+				"columnDefs" : [ {
+					"targets" : [ 6 ], // 6番目の列（「取得」ボタン）を並べ替え対象外
+					"orderable" : false
+				}]
+			});
+
+			
+				// スタイルフィルタの変更
+				$('#styleFilter').on('change', function() {
+					var styleValue = this.value;
+					console.log('styleValue:', styleValue);
+					// スタイルフィルタを適用
+					table.column(1).search(styleValue).draw();
+					
+					// ジャンルフィルタを表示
+					if (styleValue) {
+						$('#genreFilter').show();
+						
+						$.ajax({
+							url:'/categories/category/genres',
+							data:{style:styleValue},
+							success : function(genres){
+								var genreSelect = $('#genreFilter');
+								genreSelect.empty();
+								genreSelect.append('<option value="">ジャンルで絞り込み</option>');
+								
+								genres.forEach(function(genre){
+									genreSelect.append('<option value="' + genre.genre + '">' + genre.genre + '</option>' );
+								});
+							},
+							error: function(){
+								console.log('ジャンルの取得に失敗しました');
+							}
+							});
+						
+					} else {
+						$('#genreFilter').hide().val('');
+						$('#detail1Filter').hide().val('');
+						$('#detail2Filter').hide().val('');
+						$('#detail3Filter').hide().val('');
+					}
+				});
+
+				// ジャンルフィルタの変更
+				$('#genreFilter').on('change', function() {
+					var genreValue = this.value;
+					// ジャンルフィルタを適用
+					table.column(2).search(genreValue).draw();
+					// 詳細1フィルタを表示
+					if (genreValue) {
+						$('#detail1Filter').show();
+						
+						$.ajax({
+							url:'/categories/category/detail1s',
+							data:{genre:genreValue},
+							success : function(detail1s){
+								var detail1Select = $('#detail1Filter');
+								detail1Select.empty();
+								detail1Select.append('<option value="">詳細1で絞り込み</option>');
+								
+								detail1s.forEach(function(detail1){
+									detail1Select.append('<option value="' + detail1.detail1 + '">' + detail1.detail1 + '</option>' );
+								});
+							},
+							error: function(){
+								console.log('詳細1に失敗しました');
+							}
+							});
+						
+					} else {
+						$('#detail1Filter').hide().val('');
+						$('#detail2Filter').hide().val('');
+						$('#detail3Filter').hide().val('');
+					}
+				});
+
+				// 詳細1フィルタの変更
+				$('#detail1Filter').on('change', function() {
+					var detail1Value = this.value;
+					// 詳細1フィルタを適用
+					table.column(3).search(detail1Value).draw();
+					console.log('detail1Value:', detail1Value);
+					
+					// 詳細2フィルタを表示
+					if (detail1Value) {
+						$('#detail2Filter').show();
+						
+						$.ajax({
+							url:'/categories/category/detail2s',
+							data:{detail1:detail1Value},
+							success : function(detail2s){
+								var detail2Select = $('#detail2Filter');
+								detail2Select.empty();
+								detail2Select.append('<option value="">詳細2で絞り込み</option>');
+								
+								detail2s.forEach(function(detail2){
+									detail2Select.append('<option value="' + detail2.detail2 + '">' + detail2.detail2 + '</option>' );
+								});
+							},
+							error: function(){
+								console.log('詳細2の取得に失敗しました');
+							}
+							});
+						
+					} else {
+						$('#detail2Filter').hide().val('');
+						$('#detail3Filter').hide().val('');
+					}
+				});
+
+				// 詳細2フィルタの変更
+				$('#detail2Filter').on('change', function() {
+					var detail2Value = this.value;
+					// 詳細2フィルタを適用
+					table.column(4).search(detail2Value).draw();
+
+					// 詳細3フィルタを表示
+					if (detail2Value) {
+						$('#detail3Filter').show();
+						
+						$.ajax({
+							url:'/categories/category/detail3s',
+							data:{detail2:detail2Value},
+							success : function(detail3s){
+								var detail3Select = $('#detail3Filter');
+								detail3Select.empty();
+								detail3Select.append('<option value="">詳細3で絞り込み</option>');
+								
+								detail3s.forEach(function(detail3){
+									detail3Select.append('<option value="' + detail3.detail3 + '">' + detail3.detail3 + '</option>' );
+								});
+							},
+							error: function(){
+								console.log('詳細3の取得に失敗しました');
+							}
+							});
+						
+					} else {
+						$('#detail3Filter').hide().val('');
+					}
+				});
+
+				// 詳細3フィルタの変更
+				$('#detail3Filter').on('change', function() {
+					var detail3Value = this.value;
+					// 詳細3フィルタを適用
+					table.column(5).search(detail3Value).draw();
+				});
+		});
+	</script>
+</body>
+</html>

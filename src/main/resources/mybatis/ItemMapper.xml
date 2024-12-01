@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.ItemMapper">
+	
+	<select id="selectAll" resultType="Item">
+		SELECT * FROM items
+	</select>
+	
+	<select id="selectById" resultType="Item">
+		SELECT * FROM items
+		WHERE items.id=#{id}
+	</select>
+	
+	
+	<select id="count" resultType="long">
+		SELECT COUNT(*) FROM items
+	</select>
+	
+	
+	<select id="selectLimited" resultType="Item">
+		SELECT * FROM items
+		LIMIT #{offset} , #{numPerPage}
+	</select>
+	
+	
+	<insert id="insert" parameterType="Item" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO items(category, title, description, starting_price, event_duration, end_time,
+    item_condition,registered_date, updated_date, listing_date, created_by)
+		VALUES(#{category},#{title},#{description},#{startingPrice},
+			   #{eventDuration},#{endTime},#{itemCondition},NOW(),NOW(),#{listingDate},#{createdBy})		
+	</insert>
+	
+	
+	
+	
+	
+	<!--<insert id="insert" parameterType="Item">
+		INSERT INTO items(category, title, description, starting_price, event_duration, end_time,
+    item_condition, image1, image2,image3,registered_date, updated_date, listing_date, created_by)
+		VALUES(#{category},#{title},#{description},#{startingPrice},
+			   #{eventDuration},#{endTime},#{itemCondition},#{imageNames[0]},#{imageNames[1]},
+			   #{imageNames[2]},#{imageNames[3]},#{imageNames[4]},#{imageNames[5]},#{imageNames[6]},
+			   #{imageNames[7]},#{imageNames[8]},#{imageNames[9]},
+			   NOW(),NOW(),#{listingDate},)		
+	</insert>
+	  -->
+	
+	
+	<update id="update" parameterType="Item">
+		UPDATE items
+		SET  category=#{category},title=#{title},description=#{description},
+			 starting_price=#{startingPrice},event_duration=#{eventDuration},
+			 end_time=#{endTime},item_condition=#{itemCondition},
+			 updated_date=NOW(), listing_date=#{listingDate}, created_by=#{createdBy}
+		WHERE id = #{id}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	<!--  <insert id="insert" parameterType="Item">
+		INSERT INTO items(category, title, description, starting_price, event_duration, end_time,
+    item_condition, image1, image2, image3, image4, image5, image6, image7, image8, image9, image10,
+    registered_date, updated_date, listing_date, created_by)
+		VALUES(#{category},#{title},#{description},#{startingPrice},
+			   #{eventDuration},#{endTime},#{itemCondition},#{image1},#{image2},#{image3},#{image4},
+			   #{image5},#{image6},#{image7},#{image8},#{image9},#{image10},
+			   NOW(),NOW(),#{listingDate},'加藤')		
+	</insert>
+	
+	<update id="update" parameterType="Item">
+		UPDATE items
+		SET  category=#{category},title=#{title},description=#{description},
+			 starting_price=#{startingPrice},event_duration=#{eventDuration},
+			 end_time=#{endTime},item_condition=#{itemCondition},image1=#{image1},image2=#{image2},
+			 image3=#{image3},image4=#{image4},image5=#{image5},image6=#{image6},image7=#{image7},
+			 image8=#{image8},image9=#{image9},image10=#{image10},updated_date=NOW(),
+			 listing_date=#{listingDate}
+		WHERE id = #{id}
+	</update>
+	-->
+	<delete id="delete" parameterType="int">
+		DELETE FROM items WHERE id =#{id}
+	</delete>
+	
+	
+</mapper>

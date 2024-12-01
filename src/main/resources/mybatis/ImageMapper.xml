@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.image.mapper.ImageMapper">
+
+	<select id="selectAll" resultType="Image">
+		SELECT * FROM images
+	</select>
+	
+	<select id="selectById" resultType="Image">
+		SELECT * FROM images
+		WHERE item_id=#{id}
+	</select>
+	
+	<insert id="insert" parameterType="Image">
+		INSERT INTO images(item_id,image1,image2,image3,image4,image5,image6,image7,image8,image9,image10)
+		VALUES(#{itemId},#{image1},#{image2},#{image3},#{image4},#{image5},#{image6},#{image7},#{image8},#{image9},#{image10})		
+	</insert>
+	
+	<update id="update" parameterType="Image">
+		UPDATE images
+		SET  image1=#{image1},image2=#{image2},image3=#{image3},
+			 image4=#{image4},image5=#{image5},image6=#{image6},
+			 image7=#{image7},image8=#{image8},image9=#{image9},
+			 image10=#{image10}
+		WHERE item_id = #{itemId}
+	</update>
+	
+	<update id="deleteForImage" parameterType="int">
+		UPDATE images
+		SET  image1="",image2="",image3="",
+			 image4="",image5="",image6="",
+			 image7="",image8="",image9="",
+			 image10=""
+		WHERE item_id = #{itemId}
+	</update>
+	
+	<delete id="deleteForItem" parameterType="int">
+		DELETE FROM images WHERE item_id =#{itemId}
+	</delete>
+	
+	
+	
+	<!--  
+	<insert id="insert" parameterType="Image">
+		INSERT INTO items(item_id,image1,image2,image3,image4,image5,image6,image7,image8,image9,image10)
+		VALUES(#{itemId},#{image1},#{image2},#{image3},#{image4},#{image5},#{image6},#{image7},
+			   #{image8},#{image9},#{image10})		
+	</insert>
+	-->
+	
+</mapper>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>[[${title}]]</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<div class="container">
+		<h1 class="my-4">[[${title}]]</h1>
+		
+		<div th:if="${statusMessage}" class="alert alert-success mt-4">
+			[[${statusMessage}]]
+		</div>
+				
+			<form action="" method="post" th:object="${imageFile}"enctype="multipart/form-data">
+				
+				<div class="form-group mb-3">
+						<input type="submit" class="btn btn-primary btn-block" value="画像を更新する">
+				</div>
+				
+				<div class="row">
+					<div class="col-6 col-md-4 col-lg-4 mb-3">
+						<div class="form-group">
+							<label for="image1">画像1</label>
+							<div>
+								<p th:if="${image.image1 != null and not #strings.isEmpty(image.image1)}">
+									<img th:src="@{/uploads/{img}(img = ${image.image1})}" alt="Current Image" style="max-width: 100px; margin-top: 10px;" />
+								</p>
+								 <p th:unless="${image.image1 != null and not #strings.isEmpty(image.image1)}" style="height: 100px; margin-top: 10px;">
+                					<span style="color: #888;">画像はありません</span>
+           						</p>
+							</div>
+							<input type="file" id="image1" class="form-control"
+								th:field="*{imageFile1}" />
+							<div class="error" th:if="${#fields.hasErrors('imageFile1')}"th:errors="*{imageFile1}"></div>
+						</div>
+					</div>
+					
+					<div class="col-6 col-md-4 col-lg-4 mb-3">
+						<div class="form-group">
+							<label for="image2">画像2</label>
+							<div>
+								<p th:if="${image.image2 != null and not #strings.isEmpty(image.image2)}">
+									<img th:src="@{/uploads/{img}(img = ${image.image2})}" alt="Current Image" style="max-width: 100px; margin-top: 10px;" />
+								</p>
+								 <p th:unless="${image.image2 != null and not #strings.isEmpty(image.image2)}" style="height: 100px; margin-top: 10px;">
+                					<span style="color: #888;">画像はありません</span>
+           						</p>
+							</div>
+							<input type="file" id="image2" class="form-control"
+								th:field="*{imageFile2}" />
+							<div class="error" th:if="${#fields.hasErrors('imageFile2')}"
+								th:errors="*{imageFile2}"></div>
+						</div>
+					</div>
+					
+					<div class="col-6 col-md-4 col-lg-4 mb-3">
+						<div class="form-group">
+							<label for="image3">画像3</label>
+							<div>
+								<p th:if="${image.image3 != null and not #strings.isEmpty(image.image3)}">
+									<img th:src="@{/uploads/{img}(img = ${image.image3})}" alt="Current Image" style="max-width: 100px; margin-top: 10px;" />
+								</p>
+								 <p th:unless="${image.image3 != null and not #strings.isEmpty(image.image3)}" style="height: 100px; margin-top: 10px;">
+                					<span style="color: #888;">画像はありません</span>
+           						</p>
+							</div>
+							<input type="file" id="image3" class="form-control"
+								th:field="*{imageFile3}" />
+							<div class="error"  th:if="${#fields.hasErrors('imageFile3')}"
+								th:errors="*{imageFile3}"></div>
+						</div>
+					</div>
+					
+					<div class="col-6 col-md-4 col-lg-4 mb-3">
+						<div class="form-group">
+							<label for="image4">画像4</label>
+							<div>
+								<p th:if="${image.image4 != null and not #strings.isEmpty(image.image4)}">
+									<img th:src="@{/uploads/{img}(img = ${image.image4})}" alt="Current Image" style="max-width: 100px; margin-top: 10px;" />
+								</p>
+								 <p th:unless="${image.image4 != null and not #strings.isEmpty(image.image4)}" style="height: 100px; margin-top: 10px;">
+                					<span style="color: #888;">画像はありません</span>
+           						</p>
+							</div>
+							<input type="file" id="image4" class="form-control"
+								th:field="*{imageFile4}" />
+							<div class="error"  th:if="${#fields.hasErrors('imageFile4')}"
+								th:errors="*{imageFile4}"></div>
+						</div>
+					</div>
+
+					<div class="col-6 col-md-4 col-lg-4 mb-3">
+						<div class="form-group">
+							<label for="image5">画像5</label>
+							<div>
+								<p th:if="${image.image5 != null and not #strings.isEmpty(image.image5)}">
+									<img th:src="@{/uploads/{img}(img = ${image.image5})}" alt="Current Image" style="max-width: 100px; margin-top: 10px;" />
+								</p>
+								 <p th:unless="${image.image5 != null and not #strings.isEmpty(image.image5)}" style="height: 100px; margin-top: 10px;">
+                					<span style="color: #888;">画像はありません</span>
+           						</p>
+							</div>
+							<input type="file" id="image5" class="form-control"
+								th:field="*{imageFile5}" />
+							<div class="error"  th:if="${#fields.hasErrors('imageFile5')}"
+								th:errors="*{imageFile5}"></div>
+						</div>
+					</div>
+					
+					
+					<div class="col-6 col-md-4 col-lg-4 mb-3">
+						<div class="form-group">
+							<label for="image6">画像6</label>
+							<div>
+								<p th:if="${image.image6 != null and not #strings.isEmpty(image.image6)}">
+									<img th:src="@{/uploads/{img}(img = ${image.image6})}" alt="Current Image" style="max-width: 100px; margin-top: 10px;" />
+								</p>
+								 <p th:unless="${image.image6 != null and not #strings.isEmpty(image.image6)}" style="height: 100px; margin-top: 10px;">
+                					<span style="color: #888;">画像はありません</span>
+           						</p>
+							</div>
+							<input type="file" id="image6" class="form-control"
+								th:field="*{imageFile6}" />
+							<div class="error"  th:if="${#fields.hasErrors('imageFile6')}"
+								th:errors="*{imageFile6}"></div>
+						</div>
+					</div>
+					
+					<div class="col-6 col-md-4 col-lg-4 mb-3">
+						<div class="form-group">
+							<label for="image7">画像7</label>
+							<div>
+								<p th:if="${image.image7 != null and not #strings.isEmpty(image.image7)}">
+									<img th:src="@{/uploads/{img}(img = ${image.image7})}" alt="Current Image" style="max-width: 100px; margin-top: 10px;" />
+								</p>
+								 <p th:unless="${image.image7 != null and not #strings.isEmpty(image.image7)}" style="height: 100px; margin-top: 10px;">
+                					<span style="color: #888;">画像はありません</span>
+           						</p>
+							</div>
+							<input type="file" id="image7" class="form-control"
+								th:field="*{imageFile7}" />
+							<div class="error"  th:if="${#fields.hasErrors('imageFile7')}"
+								th:errors="*{imageFile7}"></div>
+						</div>
+					</div>
+					
+					<div class="col-6 col-md-4 col-lg-4 mb-3">
+						<div class="form-group">
+							<label for="image8">画像8</label>
+							<div>
+								<p th:if="${image.image8 != null and not #strings.isEmpty(image.image8)}">
+									<img th:src="@{/uploads/{img}(img = ${image.image8})}" alt="Current Image" style="max-width: 100px; margin-top: 10px;" />
+								</p>
+								 <p th:unless="${image.image8 != null and not #strings.isEmpty(image.image8)}" style="height: 100px; margin-top: 10px;">
+                					<span style="color: #888;">画像はありません</span>
+           						</p>
+							</div>
+							<input type="file" id="image8" class="form-control"
+								th:field="*{imageFile8}" />
+							<div class="error"  th:if="${#fields.hasErrors('imageFile8')}"
+								th:errors="*{imageFile8}"></div>
+						</div>
+					</div>
+
+					<div class="col-6 col-md-4 col-lg-4 mb-3">
+						<div class="form-group">
+							<label for="image9">画像9</label>
+							<div>
+								<p th:if="${image.image9 != null and not #strings.isEmpty(image.image9)}">
+									<img th:src="@{/uploads/{img}(img = ${image.image9})}" alt="Current Image" style="max-width: 100px; margin-top: 10px;" />
+								</p>
+								 <p th:unless="${image.image9 != null and not #strings.isEmpty(image.image9)}" style="height: 100px; margin-top: 10px;">
+                					<span style="color: #888;">画像はありません</span>
+           						</p>
+							</div>
+							<input type="file" id="image9" class="form-control"
+								th:field="*{imageFile9}" />
+							<div class="error"  th:if="${#fields.hasErrors('imageFile9')}"
+								th:errors="*{imageFile9}"></div>
+						</div>
+					</div>
+					
+					<div class="col-6 col-md-4 col-lg-4 mb-3">
+						<div class="form-group">
+							<label for="image10">画像10</label>
+							<div>
+							<p th:if="${image.image10 != null and not #strings.isEmpty(image.image10)}">
+								<img th:src="@{/uploads/{img}(img = ${image.image10})}" alt="Current Image" style="max-width: 100px; margin-top: 10px;" />
+							</p>
+							<p th:unless="${image.image10 != null and not #strings.isEmpty(image.image10)}" style="height: 100px; margin-top: 10px;">
+               					<span style="color: #888;">画像はありません</span>
+      						</p>
+							</div>
+							<input type="file" id="image10" class="form-control"
+								th:field="*{imageFile10}" />
+							<div class="error"  th:if="${#fields.hasErrors('imageFile10')}"
+								th:errors="*{imageFile10}"></div>
+						</div>
+					</div>
+					</div>
+				</form>
+				<button type="submit" class="btn btn-danger delete mb-3" th:data-name="${item.title}" 
+           				th:data-href="@{/items/deleteImage/{id}(id=${item.id})}"
+           				data-bs-toggle="modal"
+           				data-bs-target="#confirm-modal">画像を削除する</button>
+				<p class="mt-4"><a th:href="@{/items}">一覧に戻る</a></p>
+			</div>
+			
+	
+
+
+<div class="modal fade" id="confirm-modal" tabindex="-1"
+	aria-labelledby="confirmModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">画像の削除</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				「<span id="delete-name"></span>」の画像を削除します。よろしいですか？
+			</div>
+			<div class="modal-footer">
+				<a class="btn btn-danger" id="delete-yes">はい</a>
+				<button type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">いいえ</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script>
+document
+  .querySelectorAll(".delete")
+  .forEach(btn => btn.addEventListener("click", e => {
+	const name = e.target.getAttribute("data-name");
+	document
+	  .getElementById("delete-name")
+	  .textContent = name;
+	
+	const href = e.target.getAttribute("data-href");
+	document
+	  .getElementById("delete-yes")
+	  .setAttribute("href", href);
+  }));
+</script>
+
+
+</body>
+</html>
